@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    {% if not user.is_email_validated %}
+        <p>Please, validate your email</p>
+    {% endif%}
+
+    <form action="" method="post" class="login-form">
+
+            <input type="checkbox" id="daily" name="daily" value="daily">
+            <label for="daily"> Daily</label><br>
+
+            <div class="form-group">
+              <label for="task">Task</label>
+              <input type="text" id="task" name="task" class="form-control" required="required">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add new task</button>
+          </form>
+    {% for i in user.tasks%}
+        {% if not i.is_completed%}
+            {% if i.is_daily%}
+                {{i.task}} <a href="{{url_for('completed', id=i.id)}}">Complete</a> <a href="{{url_for('delete', id=i.id)}}">Delete</a>
+            {% else%}
+                {{i.task}} <a href="{{url_for('completed', id=i.id)}}">Complete</a>
+            {%endif%}
+            <hr>
+        {%endif%}
+    {% endfor%}
+
+</body>
+</html>

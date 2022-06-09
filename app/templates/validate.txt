@@ -1,0 +1,1 @@
+{{ url_for('validate', token=token, _external=True) }}
